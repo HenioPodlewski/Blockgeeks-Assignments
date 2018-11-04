@@ -19,12 +19,8 @@
           let blockNumber = await provider.getBlockNumber()
 
           // TODO: Get the last 10 blocks and pass the result to printBlock() function
-          async function newBlockGet(block) {
-            printBlock(await provider.getBlock(block));
-          }
-
           for (var repeat = 0; repeat < 10; repeat++) {
-              newBlockGet(blockNumber);
+              printBlock(await provider.getBlock(blockNumber));
               blockNumber--;
           }
       }
