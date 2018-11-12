@@ -68,7 +68,7 @@ contract Crowdsale {
         uint256 numTokens;
         numTokens = msg.value * rate;
         token.transfer(beneficiary, numTokens);
-        weiRaised += msg.value;
+        weiRaised = weiRaised.add(msg.value);
         emit TokensPurchased(msg.sender, beneficiary, msg.value, numTokens); //purchaser,beneficiary,wei paid,#tokens purchased
         wallet.transfer(msg.value);
     }
