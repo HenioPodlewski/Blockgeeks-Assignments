@@ -145,9 +145,9 @@ contract CryptoBallers is ERC721 {
         uint offenseSkill = _offenseSkill;
         uint defenseSkill = _defenseSkill;
 
-        uint numOfElements = ballers.length;
+        uint numOfElements = CryptoBallers.ballers.length;
         uint256 newId = 0; 
-        if(numOfElements < 0) {
+        if(numOfElements > 0) {
             newId = numOfElements;
         }
 
