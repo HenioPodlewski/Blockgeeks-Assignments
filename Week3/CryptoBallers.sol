@@ -99,12 +99,16 @@ contract CryptoBallers is ERC721 {
        Baller storage targetId = ballers[_opponentId];
        require(ballerId.level != targetId.level);
        if(ballerId.offenseSkill > targetId.defenseSkill) {
-           ballers[_ballerId].level.add(1);
-           ballers[_opponentId].level.sub(1);
+            ballers[_ballerId].level = ballers[_ballerId].level.add(1);
+            ballers[_opponentId].level = ballers[_opponentId].level.sub(1);
+            ballers[_ballerId].winCount = ballers[_ballerId].winCount.add(1);
+            ballers[_opponentId].lossCount = ballers[_opponentId].lossCount.add(1);
         }
        if(ballerId.offenseSkill < targetId.defenseSkill) { 
-           ballers[_ballerId].level.sub(1);
-           ballers[_opponentId].level.add(1);
+            ballers[_ballerId].level = ballers[_ballerId].level.sub(1);
+            ballers[_opponentId].level = ballers[_opponentId].level.add(1);
+            ballers[_ballerId].lossCount = ballers[_ballerId].lossCount.add(1);
+            ballers[_opponentId].winCount = ballers[_opponentId].winCount.add(1);
         }
         if(ballers[_ballerId].level == 5) {
             uint level;
@@ -147,12 +151,14 @@ contract CryptoBallers is ERC721 {
             newId = numOfElements;
         }
 
-        ballers[newId].name = name;
-        ballers[newId].level = level;
-        ballers[newId].offenseSkill = offenseSkill;
-        ballers[newId].defenseSkill = defenseSkill;
-        ballers[newId].winCount = 0;
-        ballers[newId].lossCount = 0;
+        Baller memory myBaller;
+        myBaller.name = _name;
+        myBaller.level = _level;
+        myBaller.offenseSkill = _offenseSkill;
+        myBaller.defenseSkill = _defenseSkill;
+        myBaller.winCount = 0;
+        myBaller.lossCount = 0;
+        ballers.push(myBaller);
         _mint(msg.sender, newId);
 
     }
